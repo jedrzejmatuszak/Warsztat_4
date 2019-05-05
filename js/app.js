@@ -16,9 +16,9 @@ $(function() {
                     <td>${item.isbn}</td>
                     <td>${item.author}</td>
                     <td>
-                        <button type="button" class="btn btn-danger" id="delete">Usuń</button>
+                        <button type="button" class="btn btn-danger">Usuń</button>
                     </td>
-                </tr>
+                </tr>  
                 <tr>
                     <td colspan="5">
                         <div class="collapse" id="collapseExample${item.id}">
@@ -74,7 +74,7 @@ $(function() {
                         <option id="genre" name="genre">7</option>
                       </select>
                     </div>
-                      <button type="submit" class="btn btn-success" id="addBook">Dodaj książkę</button>
+                    <button type="submit" class="btn btn-success" id="addBook">Dodaj książkę</button>
                     </form>`;
     container.before(form);
     $('#addBookForm').submit(function () {
@@ -86,8 +86,15 @@ $(function() {
         }).fail(function () {
             alert('Podaj wszystkie dane')
         });
-        $('#delete').on('click', function (e) {
-            console.log('click');
-        })
     });
+    $('table').on('click', '.btn-danger', function (e) {
+        var x = $(this).parent().parent().children('th').text();
+        $.ajax({
+            url: `http://localhost:8000/book/${x}`,
+            type: 'DELETE'
+        }).done(function (){
+            alert(`Książka od ID ${x} usunięta`);
+            location.reload()
+        });
+    })
 });
