@@ -83,9 +83,11 @@ $(function() {
             url: 'http://localhost:8000/book/',
             data: formData,
             dataType: 'json'
+        }).fail(function () {
+            alert('Podaj wszystkie dane')
+        });
+        $('#delete').on('click', function (e) {
+            console.log('click');
         })
     });
-    $('#delete').on('click', function (e) {
-        console.log('click');
-    })
-}); 
+});
